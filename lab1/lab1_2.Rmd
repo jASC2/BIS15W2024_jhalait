@@ -107,6 +107,10 @@ The RMarkdown file can then be exported in a number of formats. If you have ques
 
 Here is a great [tutorial on RMarkdown](https://www.markdowntutorial.com/).  
 
+```{r}
+## These reports are very clean, uniform, and powerful. They can be produced by clicking 'knit.'
+```
+
 ## RMarkdown Basics  
 RMarkdown is one of many types of documents that can be created in RStudio and is the one we will use most frequently in BIS 15L.  
 
@@ -135,8 +139,9 @@ In order to make the html file, you need to "Knit" the file. Knitting just means
 3. Copy and paste the following two pieces of code into the document (include the gray code "chunks").      
 
 ```{r}
-#install.packages("tidyverse")
+#install.packages("tidyverse") you do not need to install tidyverse more than once
 library("tidyverse")
+#this loads the tidyverse library onto your computer
 ```
 
 ```{r}
