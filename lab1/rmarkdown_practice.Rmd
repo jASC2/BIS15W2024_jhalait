@@ -1,0 +1,41 @@
+---
+title: "RMarkdown_Practice"
+output: html_document
+date: "2024-01-11"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. 
+```{r}
+1 + 5
+5 - 4
+5 * 5
+5 / 5
+# spacing between math operators does not matter
+6*9
+```
+
+2.
+No hashtag
+
+## Title
+### Heading 1
+#### Heading 2
+
+[Webpage Name](url)
+
+3.
+
+```{r}
+#install.packages("tidyverse") you do not need to install tidyverse more than once onto RStudio
+library("tidyverse")
+#this loads the tidyverse library onto a session
+```
+
+```{r}
+ggplot(mtcars, aes(x = factor(cyl))) +
+    geom_bar()
+```

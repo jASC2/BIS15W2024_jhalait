@@ -61,7 +61,7 @@ Order of operations applies and you don't need to add an '=' sign.
 
 What is going on here? How do we adjust this expression so the output is 12?
 ```{r}
-4-2*6
+(4-2)*6
 ```
 
 
@@ -72,18 +72,32 @@ First, we need to make a vector or string of values which we will store as an ob
 x <- c(4, 6, 8, 5, 6, 7, 7, 7)
 ```
 
+```{r}
+## This is a code block aka a place for code in a markdown document. To make these easier to read, add an empty line between them.
+y <- c(5, 7, 7, 3, 2, 5, 5, 5)
+```
+
 Now we can calculate the mean of object x.  
 ```{r}
 mean(x)
+mean(y)
 ```
 
 We can do the same thing for median.  
 ```{r}
 median(x)
+median(y)
 ```
 
 ```{r}
 sd(x)
+sd(y)
+```
+
+```{r}
+## To remove an object from the environment, either clear the entire environment or use the following command:
+q <- 2
+rm(q)
 ```
 
 ## RMarkdown  
