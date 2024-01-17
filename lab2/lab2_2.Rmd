@@ -91,7 +91,8 @@ box_office #although the values are combined, their pairing information is lost
 
 Create `harry_potter_matrix` using the `matrix()` command. We need to tell R how to organize the `box_office` vector using the `nrow` and `byrow` commands.
 ```{r}
-harry_potter_matrix <- matrix(box_office, nrow = 8, byrow = T)
+?matrix
+harry_potter_matrix <- matrix(box_office, nrow = 8, byrow = T) #nrow determines the number of rows in the matrix (columns are determined by ncol or made to accomodate the data given the number of rows); byrow makes the matrix fill its cells by row
 harry_potter_matrix
 harry_potter_matrix[1,2]
 ```
@@ -109,11 +110,13 @@ titles
 
 Name the columns using `colnames()` with the vector region.
 ```{r}
+?colnames
 colnames(harry_potter_matrix) <- region #assigns the matrix column names 'region'
 ```
 
 Name the rows using `rownames()` with the vector titles.
 ```{r}
+?rownames
 rownames(harry_potter_matrix) <- titles
 ```
 
@@ -131,6 +134,7 @@ global
 
 And even add a new column to reflect this calculation. `cbind()` adds columns.
 ```{r}
+?cbind
 all_harry_potter_matrix <- cbind(harry_potter_matrix, global)
 all_harry_potter_matrix
 ```
@@ -157,15 +161,19 @@ The same methods of selecting elements in a vector apply to data matrices. We us
 harry_potter_matrix[2,1]
 ```
 
-Adding a colon `:` selects the specified elements in a column.  
+Adding a colon `:` selects the specified elements in a column. Here '1:4' implies items 1 - 4, beginning at the first column and moving down. '9:12' will give you the first four values from column 2.
 ```{r}
 harry_potter_matrix[1:4]
+harry_potter_matrix[9:12]
 ```
 
-We can also select values in an entire row or column. This can be useful for calculations. Here we calculate the mean of the entire second column. 
+We can also select values in an entire row or column. This can be useful for calculations. Here we calculate the mean of the entire second column. [rows, columns]
 ```{r}
 non_us_earnings <- all_harry_potter_matrix[ ,2]
+Goblet_of_Fire_Mean <- all_harry_potter_matrix[4,] #assigns the object row 4
+Goblet_of_Fire_Mean <- all_harry_potter_matrix[4] #assigns the object the value at [1,4]
 mean(non_us_earnings)
+mean(Goblet_of_Fire_Mean)
 ```
 
 ## Wrap-up
