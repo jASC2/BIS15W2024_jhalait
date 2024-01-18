@@ -1,0 +1,54 @@
+---
+title: "lab03_warm_up"
+output: html_document
+date: "2024-01-18"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### 1. Plant Height Vector
+```{r}
+heights <- c(30.7, 37.6, 28.4, NA, 33.2)
+```
+
+### 2. Plant Mass Vector
+```{r}
+masses <- c(4, 5.2, 3.7, NA, 4.6)
+```
+
+### 3. Labels for the data matrix
+```{r}
+plant_names <- c('plant_1', 'plant_2', 'plant_3', 'plant_4', 'plant_5')
+measurement_names <- c('height', 'mass')
+```
+
+### 4. Combine the data into a single vector
+```{r}
+plant_data <- c(heights, masses)
+```
+
+### 5. Build the data matrix
+```{r}
+all_plant_matrix <- matrix(plant_data, nrow = 5, byrow = F)
+all_plant_matrix
+```
+### 6. Naming the columns and rows of the data matrix
+```{r}
+colnames(all_plant_matrix) <- measurement_names
+rownames(all_plant_matrix) <- plant_names
+all_plant_matrix
+```
+### 7. Calculate the means of each column
+```{r}
+plant_means <- colMeans(all_plant_matrix, na.rm=T)
+plant_means
+```
+
+### 8. Add this as a new row
+```{r}
+final_plant_matrix <- rbind(all_plant_matrix, plant_means)
+final_plant_matrix
+```
+
