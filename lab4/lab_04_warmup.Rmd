@@ -1,0 +1,42 @@
+---
+title: "lab04_warmup"
+output: html_document
+date: "2024-01-23"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#Install the tidyverse and palmerpenguins libraries
+library(tidyverse)
+library(palmerpenguins)
+```
+
+```{r}
+#Load the penguins dataset and check its structure
+penguins_dataset <- penguins
+dim(penguins_dataset)
+```
+
+2. The dataset is 344 rows by 8 columns.
+
+```{r}
+#Find the column (variable) names
+names(penguins_dataset)
+```
+
+3. The variable names are species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex, and year.
+
+```{r}
+table(penguins_dataset$island) # equivalent to summary(penguins_dataset$island)
+```
+
+4. Biscoe has 168 penguins, Dream has 124 penguins, and Torgersen has 52 penguins.
+
+```{r}
+mean(penguins_dataset$body_mass_g, na.rm = T)
+```
+
+The mean body weight is 4201.754 g.
