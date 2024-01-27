@@ -11,7 +11,7 @@
 
 <meta name="author" content="Jaskaran Halait" />
 
-<meta name="date" content="2024-01-24" />
+<meta name="date" content="2024-01-27" />
 
 <title>Lab 4 Homework</title>
 
@@ -376,13 +376,13 @@ display: none;
 
 <h1 class="title toc-ignore">Lab 4 Homework</h1>
 <h4 class="author">Jaskaran Halait</h4>
-<h4 class="date">2024-01-24</h4>
+<h4 class="date">2024-01-27</h4>
 
 </div>
 
 
-<div id="instructions-complete-questions-1---6" class="section level2">
-<h2>Instructions (complete questions 1 - 6)</h2>
+<div id="instructions" class="section level2">
+<h2>Instructions</h2>
 <p>Answer the following questions and complete the exercises in
 RMarkdown. Please embed all of your code and push your final work to
 your repository. Your final lab report should be organized, clean, and
@@ -619,16 +619,76 @@ guild.</strong></p>
 carnivores, while the remaining 227 are herbivores.</p>
 <p><strong>7. Make two new data frames, one which is restricted to
 carnivores and another that is restricted to herbivores.</strong></p>
+<pre class="r"><code>#Create the carnivore data frame:
+carnivore_only &lt;- filter(homerange, trophic.guild==&quot;carnivore&quot;)</code></pre>
+<pre class="r"><code>#Create the herbivore data frame:
+herbivore_only &lt;- filter(homerange, trophic.guild==&quot;herbivore&quot;)</code></pre>
 <p><strong>8. Do herbivores or carnivores have, on average, a larger
 <code>mean.hra.m2</code>? Remove any NAs from the data.</strong></p>
+<pre class="r"><code>#Calculate the carnivore average mean.hra.m2:
+mean(carnivore_only$&quot;mean.hra.m2&quot;, na.rm = T)</code></pre>
+<pre><code>## [1] 13039918</code></pre>
+<pre class="r"><code>#Calculate the herbivore average mean.hra.m2:
+mean(herbivore_only$&quot;mean.hra.m2&quot;, na.rm = T)</code></pre>
+<pre><code>## [1] 34137012</code></pre>
+<p>On average, herbivores have a larger “mean.hra.m2” than
+carnivores.</p>
 <p><strong>9. Make a new dataframe <code>owls</code> that is limited to
 the mean mass, log10 mass, family, genus, and species of owls in the
 database. Which is the smallest owl? What is its common name? Do a
 little bit of searching online to see what you can learn about this
 species and provide a link below</strong></p>
+<pre class="r"><code>#Generating the data frame of interest:
+owls &lt;- filter(homerange, order==&quot;strigiformes&quot;)
+owls_subset &lt;- select(owls, &quot;common.name&quot;, &quot;family&quot;, &quot;genus&quot;, &quot;species&quot;, &quot;mean.mass.g&quot;, &quot;log10.mass&quot;)
+
+#Finding the smallest owl
+?min()
+smallest_mass &lt;- min(owls_subset$mean.mass.g)
+filter(owls_subset, mean.mass.g==smallest_mass)</code></pre>
+<pre><code>## # A tibble: 1 × 6
+##   common.name        family    genus      species    mean.mass.g log10.mass
+##   &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Eurasian pygmy owl strigidae glaucidium passerinum        61.3       1.79</code></pre>
+<p>The smallest of the owls by average mass is the Eurasian pygmy owl.
+<a href="https://en.wikipedia.org/wiki/Eurasian_pygmy_owl">Here is a
+link to its Wikipedia entry for more information</a>. What was most
+surprising to me, upon looking up the owl, is the wide area the species
+inhabits (Northern/central Europe to Siberia!).</p>
 <p><strong>10. As measured by the data, which bird species has the
 largest homerange? Show all of your work, please. Look this species up
 online and tell me about it!</strong>.</p>
+<pre class="r"><code>#Creating a data frame with information about each bird and its homerange:
+birds_only &lt;- filter(homerange, class==&quot;aves&quot;)
+birds_homerange &lt;- select(birds_only, &quot;common.name&quot;, &quot;class&quot;, &quot;order&quot;, &quot;family&quot;, &quot;genus&quot;, &quot;species&quot;, &quot;mean.hra.m2&quot; )
+
+#Arrange each entry on the data frame in descending order by their &quot;mean.hra.m2&quot;:
+birds_homerange &lt;- arrange(birds_homerange, desc(mean.hra.m2))
+birds_homerange</code></pre>
+<pre><code>## # A tibble: 140 × 7
+##    common.name            class order           family genus species mean.hra.m2
+##    &lt;chr&gt;                  &lt;chr&gt; &lt;fct&gt;           &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;
+##  1 caracara               aves  falconiformes   falco… cara… cheriw…   241000000
+##  2 Montagu&#39;s harrier      aves  falconiformes   accip… circ… pygarg…   200980000
+##  3 peregrine falcon       aves  falconiformes   falco… falco peregr…   153860000
+##  4 booted eagle           aves  accipitriformes accip… hier… pennat…   117300000
+##  5 ostrich                aves  struthioniform… strut… stru… camelus    84300000
+##  6 short-toed snake eagle aves  accipitriformes accip… circ… gallic…    78500000
+##  7 European turtle dove   aves  columbiformes   colum… stre… turtur     63585000
+##  8 Egyptian vulture       aves  accipitriformes accip… neop… percno…    63570000
+##  9 common buzzard         aves  accipitriformes accip… buteo buteo      50240000
+## 10 lanner falcon          aves  falconiformes   falco… falco biarmi…    50000000
+## # ℹ 130 more rows</code></pre>
+<p>Of all the birds represented in this data frame, the caracara has the
+largest homerange (241000000.00). This homerange encompasses many
+regions all the way from the tip of South America to several southern US
+states. What I found most interesting about the species is its
+preference to often walk instead of fly. Even when in flight, it
+generally doesn’t soar, choosing instead to continually flap its wings.
+Here are some links to learn more about it!</p>
+<p><a href="https://en.wikipedia.org/wiki/Caracara_(genus)">Wikipedia</a>.</p>
+<p><a href="https://www.allaboutbirds.org/guide/Crested_Caracara/overview">All
+about Birds</a>.</p>
 </div>
 <div id="push-your-final-code-to-github" class="section level2">
 <h2>Push your final code to GitHub!</h2>
