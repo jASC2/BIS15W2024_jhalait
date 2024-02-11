@@ -56,7 +56,7 @@ penguins %>%
 `tabyl()` will also produce counts, but the output is different. It is just a matter of personal preference.
 ```{r}
 penguins %>% 
-  tabyl(island, species) #part of the janitor package but accomplishes the same think as counts or group_by/summarize.
+  tabyl(island, species) #part of the janitor package but accomplishes the same thing as counts or group_by/summarize(n()).
 ```
 
 ## Practice
@@ -90,7 +90,7 @@ What if we wanted to use `summarize()` to produce distinct counts over multiple 
 penguins %>%
   summarize(distinct_species = n_distinct(species),
             distinct_island = n_distinct(island),
-            distinct_sex = n_distinct(sex))
+            distinct_sex = n_distinct(sex, na.rm = T))
 ```
 
 By using `across()` we can reduce the clutter and make things cleaner. 
@@ -122,7 +122,7 @@ Operators can also work, here I am summarizing `n_distinct()` across all variabl
 ```{r}
 penguins %>%
   summarize(across(!c(species, island, sex, year), 
-                   mean, na.rm=T))
+                   mean, na.rm=T)) #across's first argument is the filtering conditions. This is then followed by the function you want to apply, and finally any options for that command.
 ```
 
 All variables that include "bill"...all of the other dplyr operators also work.

@@ -78,7 +78,7 @@ Let's use `mutate()` and `na_if()` to replace 0's with NA's in `max_life`.
 ```{r}
 life_history <- 
   life_history %>% 
-  mutate(max_life=na_if(max_life, 0))
+  mutate(max_life=na_if(max_life, 0)) #replaces any values in max_life that are 0 with NA
 ```
 
 ```{r}
@@ -131,9 +131,8 @@ miss_var_summary(cites)
 cites %>% 
   group_by(class) %>%
   select(class, exporter_reported_quantity) %>%
-  group_by(class) %>%
   miss_var_summary() %>%
-  arrange(desc(pct_miss))
+    arrange(desc(pct_miss))
 ```
 
 ## Visualizing NAs
