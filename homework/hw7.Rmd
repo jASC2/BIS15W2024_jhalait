@@ -93,6 +93,8 @@ amniota <- amniota %>%
                   adult_svl_cm=-999.00, male_svl_cm=-999, female_svl_cm=-999, birth_or_hatching_svl_cm=-999,
                   female_svl_at_maturity_cm=-999, female_body_mass_at_maturity_g=-999, no_sex_svl_cm=-999,
                   no_sex_maturity_d=-999.00))
+
+#alternatively use replace_with_na_all
 ```
 
 **6. Use the package `naniar` to produce a summary, including percentages, of missing data in each column for the `amniota` data.**  
