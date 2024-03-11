@@ -1,6 +1,6 @@
 ---
 title: "BIS15L_AI_hmwk"
-author: "Your Name"
+author: "Jaskaran Halait"
 date: "`r Sys.Date()`"
 output: html_document
 ---
@@ -26,22 +26,24 @@ library(dplyr)
 
 1.
 ```{r}
-blood_count <- read_csv("data/blood_count.csv")
+#This line loads in the data set.
+blood_count <- read_csv("data/blood_count_dataset.csv") %>% clean_names()
 ```
 
 2. 
 ```{r}
-glmpse(blood_count)
-
+#This line of code provides a basic overview of the data frame's format.
+glimpse(blood_count)
 ```
 
 3. 
 ```{r}
 blood_count %>% 
+  #This code chunk provides summary statistics (min, mean, and max red blood cell counts) for participants grouped by   gender.
   group_by(gender) %>% 
-  summarize(min=min(red_blood_cells)
-            mean=maen(red_blood_cells),
-            max=max(red_blood_cells)
+  summarize(min=min(red_blood_cells),
+            mean=mean(red_blood_cells),
+            max=max(red_blood_cells))
 ```
 
 
@@ -50,44 +52,46 @@ blood_count %>%
 options(scipen = 999, digits = 2)
 
 blood_count %>% 
-  filter(Gender = "male") %>%
-  select[3:9] %>%
+  #This code chunk provides the average for the variables in columns 3 through 9 of the data set for male               participants.
+  filter(gender == "Male") %>% 
+  select(3:9) %>%
   colMeans(na.rm = TRUE)
-
 ```
 
 5. 
 ```{r}
-bloood_count %>% 
-  filter(Gender = "Female") />%
-  select[3:9] %>%
+blood_count %>% 
+  #This code chunk functions similarly to the one above, but calculates the column means for female participants        instead.
+  filter(gender == "Female") %>%
+  select(3:9) %>%
   colMeans(na.rm = T)
 ```
 
-
 6. 
 ```{r}
-
 blood_count %>%
-  pivot_wider(cols = [3:9], names_to = "Test", values_to = "Values") %>%
-  ggplot(aes(x = Gender, y = Values, fill = Gender)) +
+  #This first line re-organizes the data set such that the different test types are condensed into a singular column    for their type and another for their value. 
+  pivot_longer(cols = (3:9), names_to = "test", values_to = "values") %>% 
+  
+  #This next portion aims to create a pair of boxplots for each test comparing the count distribution for male and      female participants.
+  ggplot(aes(x = gender, y = values, fill = gender)) +
   geom_boxplot() +
-  facet(~ Test, scales = "free") 
+  facet_wrap(~ test, scales = "free") +
   labs(title = "Boxplot of Blood Count Tests",
-       x = "Test",
+       x = "Gender",
        y = "Values")
-
 ```
 
 7. 
 ```{r}
+#This code chunk creates a new object (grouped_bc) which adds the respective age group of each participant.
 grouped_bc <- blood_count %>%
-  change(Age_Group = case_when(
-    Age >= 20 & Age <= 29 ~ "20s",
-    Age >= 30 & Age <= 39 ~ "30s",
-    Age >= 40 & Age <= 49 ~ "40s",
-    Age >= 50 & Age <= 59 ~ "50s",
-    Age >= 60 & Age <= 70 ~ "60s")) # there were only 4 people in 70s, so I combined it with 60s
+  mutate(age_group = case_when(
+    age >= 20 & age <= 29 ~ "20s",
+    age >= 30 & age <= 39 ~ "30s",
+    age >= 40 & age <= 49 ~ "40s",
+    age >= 50 & age <= 59 ~ "50s",
+    age >= 60 & age <= 70 ~ "60s")) # there were only 4 people in 70s, so I combined it with 60s
 
 head(grouped_bc)
 
@@ -95,20 +99,22 @@ head(grouped_bc)
 
 8. 
 ```{r}
-blood_count %>%
-  pivot_longer(cols = 3:9, names_to = "Test", values_to = "Values") %>%
-  ggplot(ase(x = Age_Group, y = values, fill = Age_Group)) +
+#This code chunk uses the new grouped_bc object to create a panel of blood count box plots similar to those in 6.
+grouped_bc %>%
+  pivot_longer(cols = 3:9, names_to = "test", values_to = "values") %>%
+  ggplot(aes(x = age_group, y = values, fill = age_group)) +
   geom_boxplot() +
-  facet_wrap( Test, scales = "free") +  # Facet by the "Test" variable
+  facet_wrap( ~test, scales = "free") +  # Facet by the "Test" variable
   labs(title = "Boxplot of Blood Count Tests by Age Group",
        x = "Age Group",
        y = "Values")
-
 ```
 9. What are two drawbacks and two benefits of AI?
+I think the main drawback that comes to my mind when using AI is the risk of being dependent on it for accomplishing tasks. In the same way, considering how quick it can provide answers, there is the risk that someone might just use it immediately (e.g. ask it to generate a code chunk) without thinking through what they want the output to be or look like. 
+That being said, AI can remove a lot of the friction encountered when coding--particularly in the form of decoding error messages. Additionally, the ability to feed something like a code section to the program and ask it to explain its funciton line-by-line seems like an incredibly powerful learning tool.
 
 10. Do you think you will use AI for coding in the future? Why or why not?
-
+Yes, I actually recently used it in my research a few days back! The ability to use it as a self-teaching tool is particularly helpful for me, as it can provide simpler explanations that (with appropriate background knowledge and more vetted resources) can make difficult concepts easier to understand.
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences. 
